@@ -8,14 +8,14 @@ describe('Gilded Rose', function() {
     });
   });
 
-  describe('Once the sell by date has passed, quality degrades twice as fast', () => {
-    it('should decrease quality normally when not passed sell by date', () => {
+  describe('Once the sell by date has past, quality degrades twice as fast', () => {
+    it('should decrease quality normally when not past sell by date', () => {
       update_quality_for('foo', 1, 4);
       expect(items[0].sell_in).toEqual(0);
       expect(items[0].quality).toEqual(3);
     });
 
-    it('should decrease quality twice as fast when passed sell by date', () => {
+    it('should decrease quality twice as fast when past sell by date', () => {
       update_quality_for('foo', 0, 4);
       expect(items[0].sell_in).toEqual(-1);
       expect(items[0].quality).toEqual(2);
@@ -68,19 +68,19 @@ describe('Gilded Rose', function() {
     const BACKSTAGE_PASS = 'Backstage passes to a TAFKAL80ETC concert';
 
     it('should increase in quality normally when more than 10 days left', () => {
-      update_quality_for(BACKSTAGE_PASS, 11, 1);
+      update_quality_for(BACKSTAGE_PASS, 12, 1);
       expect(items[0].quality).toEqual(2);
     });
 
     it('should increase in quality twice as fast from 6 to 10 days left', () => {
-      for (let sell_in = 6; sell_in <= 10; sell_in++) {
+      for (let sell_in = 7; sell_in <= 11; sell_in++) {
         update_quality_for(BACKSTAGE_PASS, sell_in, 1);
         expect(items[0].quality).toEqual(3);
       }
     });
 
     it('should increase in quality three times as fast from 0 to 5 days left', () => {
-      for (let sell_in = 1; sell_in <= 5; sell_in++) {
+      for (let sell_in = 1; sell_in <= 6; sell_in++) {
         update_quality_for(BACKSTAGE_PASS, sell_in, 1);
         expect(items[0].quality).toEqual(4);
       }
@@ -91,8 +91,9 @@ describe('Gilded Rose', function() {
       expect(items[0].quality).toEqual(0);
     });
 
-    it('should not increase quality passed 50', () => {
+    it('should not increase quality past 50', () => {
       update_quality_for(BACKSTAGE_PASS, 1, 49);
+      expect(items[0].quality).toEqual(50);
     });
   });
 
