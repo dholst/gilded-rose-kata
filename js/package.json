@@ -1,0 +1,21 @@
+{
+  "name": "gilded-rose-kata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "karma start",
+    "test:watch": "karma start --auto-watch --no-single-run"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "jasmine-core": "^2.99.1",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1"
+  }
+}
