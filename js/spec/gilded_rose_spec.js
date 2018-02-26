@@ -24,8 +24,8 @@ describe('Gilded Rose', function() {
 
   describe('The quality of an item is never negative', () => {
     it('should not decrease the quality below 0', () => {
-      update_quality_for('foo', 0, 0);
-      expect(items[0].sell_in).toEqual(-1);
+      update_quality_for('foo', 1, 0);
+      expect(items[0].sell_in).toEqual(0);
       expect(items[0].quality).toEqual(0);
     });
   });
@@ -93,14 +93,21 @@ describe('Gilded Rose', function() {
 
     it('should not increase quality passed 50', () => {
       update_quality_for(BACKSTAGE_PASS, 1, 49);
-      expect(items[0].quality).toEqual(50);
     });
   });
 
   describe('Conjured items', () => {
     const CONJURED = 'Conjured something';
 
-    it('degrades twice as fast as normal items');
+    it('degrades twice as fast as normal items', () => {
+      update_quality_for(CONJURED, 1, 20);
+      expect(items[0].quality).toEqual(18);
+    });
+
+    it('degrades twice as fast as normal items', () => {
+      update_quality_for(CONJURED, 0, 20);
+      expect(items[0].quality).toEqual(16);
+    });
   });
 
   function update_quality_for(name, sell_in = 0, quality = 0) {
@@ -108,10 +115,3 @@ describe('Gilded Rose', function() {
     update_quality();
   }
 });
-
-/*
-
- Just for clarification, an item can never have its quality increase above 50,
- however "Sulfuras" is a legendary item and as such its quality is 80 and it
- never alters.
- */
