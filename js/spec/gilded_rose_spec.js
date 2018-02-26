@@ -58,7 +58,10 @@ describe('Gilded Rose', function() {
       expect(items[0].sell_in).toEqual(1);
     });
 
-    it('should always have a quality of 80');
+    it('should always have a quality of 80', () => {
+      update_quality_for(SULFURAS, 1, 25);
+      expect(items[0].quality).toEqual(80);
+    });
   });
 
   describe('Backstage passes', () => {

@@ -54,5 +54,8 @@ function update_quality() {
         }
       }
     }
+    if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
+      items[i].quality = 80;
+    }
   }
 }
